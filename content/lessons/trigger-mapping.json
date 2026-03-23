@@ -1,0 +1,27 @@
+{
+  "id": "trigger-mapping-01",
+  "category": "trigger-mapping",
+  "title": "Mapping Your Triggers",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "heading": "What is a trigger?",
+      "body": "A trigger is any situation, emotion, person, or environment that creates an urge to use. Knowing yours gives you power over them."
+    },
+    {
+      "type": "info",
+      "heading": "The 4 trigger categories",
+      "body": "Most triggers fall into: Emotional (stress, boredom, anxiety), Social (certain friends, parties), Environmental (places, smells), and Temporal (end of day, weekends)."
+    },
+    {
+      "type": "info",
+      "heading": "Avoid vs. prepare",
+      "body": "Some triggers you can avoid entirely. Others you can't — but you can prepare a plan for when they hit."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Write down your top 3 triggers. For each one, is it avoidable or something you need a coping plan for?"
+    }
+  ]
+}

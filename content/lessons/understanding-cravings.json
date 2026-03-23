@@ -1,0 +1,27 @@
+{
+  "id": "understanding-cravings-01",
+  "category": "understanding-cravings",
+  "title": "Why Cravings Feel Overwhelming",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "heading": "Your brain on THC",
+      "body": "Cannabis triggers dopamine release in the brain's reward centre. Over time your brain adjusts by reducing its natural dopamine production — which is why quitting can feel flat or anxious at first."
+    },
+    {
+      "type": "info",
+      "heading": "The craving window",
+      "body": "Most cravings peak at around 20 minutes then fade, even without using. Your job is simply to outlast the wave."
+    },
+    {
+      "type": "info",
+      "heading": "It's not weakness",
+      "body": "Cravings are a normal brain response to habit disruption. Feeling one doesn't mean you're failing — it means your brain is adjusting."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Think of the last time you had a craving. What were you doing, and how long did it actually last?"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "habit-replacement-01",
+  "category": "habit-replacement",
+  "title": "Building Better Habits",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "heading": "The habit loop",
+      "body": "Every habit has three parts: cue → routine → reward. Cannabis became your routine for a cue (stress, boredom) to get a reward (relaxation). You need a new routine — not no routine."
+    },
+    {
+      "type": "info",
+      "heading": "Stack, don't replace",
+      "body": "The easiest way to build a new habit is to attach it to something you already do. After dinner (existing habit) → take a 10-minute walk (new habit)."
+    },
+    {
+      "type": "info",
+      "heading": "Start small",
+      "body": "Tiny habits build identity. You're not 'trying to exercise' — you're 'someone who moves every day'. Start with 2 minutes."
+    },
+    {
+      "type": "reflection",
+      "prompt": "What is one small habit you could add to your day that gives you a feeling similar to what you used to get from cannabis — relaxation, creativity, or social connection?"
+    }
+  ]
+}
