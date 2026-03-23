@@ -1,0 +1,47 @@
+{
+  "id": "understanding-cravings-01",
+  "title": "Why Cravings Feel Overwhelming",
+  "category": "understanding-cravings",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "🧠",
+      "heading": "Your brain on THC",
+      "body": "Cannabis triggers dopamine release in the brain's reward centre. Over time, your brain adapts by producing less dopamine naturally — which is why stopping can feel flat or anxious at first."
+    },
+    {
+      "type": "true_false",
+      "statement": "Most cravings last longer than 30 minutes if you don't use.",
+      "answer": false,
+      "explanation": "Most cravings peak at around 20 minutes and fade on their own. Your job is simply to outlast the wave — not fight it."
+    },
+    {
+      "type": "info",
+      "emoji": "🌊",
+      "heading": "Ride the wave",
+      "body": "Think of a craving as a wave. It builds, peaks, then crashes by itself. Surfers don't fight waves — they ride them. You can do the same."
+    },
+    {
+      "type": "choice",
+      "question": "Why can quitting cannabis feel emotionally flat at first?",
+      "options": [
+        { "text": "Your body forgets how to feel emotions", "correct": false },
+        { "text": "Your brain reduced its natural dopamine output", "correct": true },
+        { "text": "You're withdrawing from nicotine", "correct": false },
+        { "text": "Sleep disruption affects mood long-term", "correct": false }
+      ],
+      "explanation": "Cannabis caused your brain to rely on external dopamine. It takes a few weeks to restore your natural baseline — it does come back."
+    },
+    {
+      "type": "info",
+      "emoji": "💪",
+      "heading": "It's not weakness",
+      "body": "Cravings are a normal brain response to habit disruption — not a character flaw. Having one doesn't mean you've failed. It means your brain is adapting."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Think about the last time you had a craving. What were you doing? How long did it actually last before it faded on its own?"
+    }
+  ]
+}

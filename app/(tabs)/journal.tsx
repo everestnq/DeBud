@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from 'expo-router'
 import { format, parseISO } from 'date-fns'
 import { useJournalStore, type MoodEntry } from '@/store/journalStore'
 import { colors } from '@/constants/colors'
@@ -42,6 +43,7 @@ const DEMO_ENTRIES: MoodEntry[] = [
 
 export default function JournalScreen() {
   const { moodEntries } = useJournalStore()
+  const router = useRouter()
   const entries = moodEntries.length > 0 ? moodEntries : DEMO_ENTRIES
   const todayStr = format(new Date(), 'MMM d').toUpperCase()
 
@@ -62,7 +64,12 @@ export default function JournalScreen() {
           <Text style={styles.moodPromptQ}>How are you feeling right now?</Text>
           <View style={styles.moodRow}>
             {MOODS.map((m) => (
-              <TouchableOpacity key={m.value} style={styles.moodBtn} activeOpacity={0.7}>
+              <TouchableOpacity
+                key={m.value}
+                style={styles.moodBtn}
+                activeOpacity={0.7}
+                onPress={() => router.push('/journal/new')}
+              >
                 <Text style={styles.moodEmoji}>{m.emoji}</Text>
                 <Text style={styles.moodLabel}>{m.label}</Text>
               </TouchableOpacity>
@@ -77,7 +84,7 @@ export default function JournalScreen() {
         ))}
 
         {/* FAB */}
-        <TouchableOpacity style={styles.fab} activeOpacity={0.85}>
+        <TouchableOpacity style={styles.fab} activeOpacity={0.85} onPress={() => router.push('/journal/new')}>
           <Text style={styles.fabText}>+ Add Entry</Text>
         </TouchableOpacity>
 

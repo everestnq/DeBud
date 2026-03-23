@@ -1,0 +1,41 @@
+{
+  "id": "trigger-mapping-03",
+  "title": "People & Place Triggers",
+  "category": "trigger-mapping",
+  "xp": 25,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "👥",
+      "heading": "People as triggers",
+      "body": "Certain people are powerful triggers — not because they're bad people, but because using together became habitual. Your brain now links those people with the reward of using."
+    },
+    {
+      "type": "true_false",
+      "statement": "Avoiding people who use means you have to cut them out of your life forever.",
+      "answer": false,
+      "explanation": "You don't need to end relationships permanently. You can reduce contact during early recovery and gradually rebuild those relationships in different contexts — like daytime, sober activities."
+    },
+    {
+      "type": "info",
+      "emoji": "📍",
+      "heading": "Environment anchors",
+      "body": "Places carry memories and cues. The couch where you always used. A friend's garage. Even a specific playlist. These environmental cues fire craving signals before you've consciously decided anything."
+    },
+    {
+      "type": "choice",
+      "question": "What's the most effective strategy for a location that's a strong trigger for you?",
+      "options": [
+        { "text": "Go there and practise willpower", "correct": false },
+        { "text": "Avoid it entirely forever", "correct": false },
+        { "text": "Avoid it early in recovery, then gradually re-expose with a plan", "correct": true },
+        { "text": "Redecorate to change the appearance", "correct": false }
+      ],
+      "explanation": "Gradual re-exposure with a plan works best long-term. Complete avoidance can't last forever, but going back too soon without a strategy increases risk of relapse."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Name one person and one place that are triggers for you. What's your specific plan for each over the next 30 days?"
+    }
+  ]
+}

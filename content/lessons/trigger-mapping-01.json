@@ -1,0 +1,41 @@
+{
+  "id": "trigger-mapping-01",
+  "title": "Mapping Your Triggers",
+  "category": "trigger-mapping",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "🗺",
+      "heading": "What is a trigger?",
+      "body": "A trigger is any situation, emotion, person, or environment that creates an urge to use. Triggers aren't the enemy — knowing yours is one of the most powerful tools you have."
+    },
+    {
+      "type": "choice",
+      "question": "Which of these is NOT one of the four main trigger categories?",
+      "options": [
+        { "text": "Emotional (stress, boredom)", "correct": false },
+        { "text": "Environmental (places, smells)", "correct": false },
+        { "text": "Financial (money problems)", "correct": true },
+        { "text": "Social (certain people, parties)", "correct": false }
+      ],
+      "explanation": "The four main categories are: Emotional, Social, Environmental, and Temporal (time-based, like evenings or weekends). Financial stress can be a trigger, but it falls under Emotional."
+    },
+    {
+      "type": "info",
+      "emoji": "🛡",
+      "heading": "Avoid vs. prepare",
+      "body": "Some triggers you can avoid entirely — like a friend's place where you always used. Others you can't avoid — like stress at work. For those, you need a plan in advance."
+    },
+    {
+      "type": "true_false",
+      "statement": "You should try to avoid all your triggers forever.",
+      "answer": false,
+      "explanation": "Some triggers (like stress or social situations) can't be avoided permanently. The goal is to map them and build coping strategies so you can handle them when they arise."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Write down your top 3 triggers right now. For each one, is it avoidable — or do you need a coping plan for when it shows up?"
+    }
+  ]
+}

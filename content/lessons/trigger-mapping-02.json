@@ -1,0 +1,35 @@
+{
+  "id": "trigger-mapping-02",
+  "title": "High-Risk Times",
+  "category": "trigger-mapping",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "🌆",
+      "heading": "The danger zone",
+      "body": "Most relapses happen in predictable windows: evenings after work, weekends, and the first hour of free time. Understanding your personal danger windows lets you plan ahead."
+    },
+    {
+      "type": "choice",
+      "question": "When are most cannabis relapses most likely to happen?",
+      "options": [
+        { "text": "Early morning before work", "correct": false },
+        { "text": "Evenings and weekends with unstructured time", "correct": true },
+        { "text": "During high-pressure work deadlines", "correct": false },
+        { "text": "During meals", "correct": false }
+      ],
+      "explanation": "Unstructured free time — especially evenings and weekends — is when most relapses happen. Boredom and habit patterns kick in when there's nothing else filling the space."
+    },
+    {
+      "type": "info",
+      "emoji": "📋",
+      "heading": "Plan the gap",
+      "body": "For your highest-risk windows, plan something specific in advance. Not 'I'll figure it out' — but an actual activity written down. Vague intentions don't survive a real craving."
+    },
+    {
+      "type": "reflection",
+      "prompt": "What are your two highest-risk time windows? Write a specific activity you can do during each one this week — something already on your phone or at home."
+    }
+  ]
+}

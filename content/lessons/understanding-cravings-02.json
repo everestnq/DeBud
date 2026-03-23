@@ -1,0 +1,41 @@
+{
+  "id": "understanding-cravings-02",
+  "title": "The 20-Minute Window",
+  "category": "understanding-cravings",
+  "xp": 20,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "⏱",
+      "heading": "Cravings have a timer",
+      "body": "Research shows that almost all cravings peak within 20 minutes and then decrease — whether you use or not. The craving literally runs out of fuel."
+    },
+    {
+      "type": "choice",
+      "question": "What is the most effective thing to do when a craving peaks?",
+      "options": [
+        { "text": "White-knuckle it and fight the urge", "correct": false },
+        { "text": "Distract yourself for 20 minutes", "correct": true },
+        { "text": "Give in to prevent it getting worse", "correct": false },
+        { "text": "Go to sleep immediately", "correct": false }
+      ],
+      "explanation": "Distraction is key. You don't need to fight the craving — just survive the peak. After 20 minutes, the wave has passed."
+    },
+    {
+      "type": "info",
+      "emoji": "🎯",
+      "heading": "The distraction strategy",
+      "body": "Anything that fully engages your brain for 20 minutes works: a walk, a phone call, a game, a cold shower. The goal isn't to feel great — just to outlast the peak."
+    },
+    {
+      "type": "true_false",
+      "statement": "Fighting a craving directly is more effective than distracting yourself.",
+      "answer": false,
+      "explanation": "Suppressing cravings directly often backfires — it keeps the craving in focus. Distraction shifts attention away, letting the craving fade naturally."
+    },
+    {
+      "type": "reflection",
+      "prompt": "What's one activity you could do right now that would fully occupy your brain for 20 minutes? Write it down so you're ready next time."
+    }
+  ]
+}

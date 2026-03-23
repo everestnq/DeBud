@@ -1,0 +1,47 @@
+{
+  "id": "habit-replacement-02",
+  "title": "Building the New Normal",
+  "category": "habit-replacement",
+  "xp": 30,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "🌱",
+      "heading": "Start embarrassingly small",
+      "body": "The biggest mistake when building new habits is starting too big. A 1-minute walk beats a 5km run you never do. Tiny habits build identity. You're becoming 'someone who moves every day' — not 'trying to exercise'."
+    },
+    {
+      "type": "choice",
+      "question": "Why do small habits succeed more often than ambitious ones?",
+      "options": [
+        { "text": "Small habits require less willpower to start", "correct": true },
+        { "text": "Small habits produce bigger results", "correct": false },
+        { "text": "Your brain can't handle large changes", "correct": false },
+        { "text": "Small habits are easier to track", "correct": false }
+      ],
+      "explanation": "Getting started is the hardest part. A habit you actually do beats a perfect habit you don't. Once started, you usually do more than planned."
+    },
+    {
+      "type": "info",
+      "emoji": "📈",
+      "heading": "The compound effect",
+      "body": "Small consistent actions compound dramatically. 30 minutes of exercise a day seems small, but over 30 days that's 15 hours of movement you wouldn't have had. The habit isn't the action — it's the identity it builds."
+    },
+    {
+      "type": "true_false",
+      "statement": "Missing one day of a new habit breaks your progress and you should start over.",
+      "answer": false,
+      "explanation": "Missing one day has almost no effect on a habit. The real risk is missing two days in a row — that's when habits break. The rule is: never miss twice."
+    },
+    {
+      "type": "info",
+      "emoji": "🔑",
+      "heading": "The 'never miss twice' rule",
+      "body": "If you miss a day, your only job is to show up the next day. One miss is an accident. Two misses is the start of a new habit — in the wrong direction."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Pick one new habit to start this week. Make it so small it feels almost too easy. What is it, and when exactly will you do it? (Specific time + existing habit to stack it on.)"
+    }
+  ]
+}

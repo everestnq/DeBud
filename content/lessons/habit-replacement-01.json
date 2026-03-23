@@ -1,0 +1,41 @@
+{
+  "id": "habit-replacement-01",
+  "title": "Rewiring Your Reward Loop",
+  "category": "habit-replacement",
+  "xp": 25,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "🔄",
+      "heading": "The habit loop",
+      "body": "Every habit has three parts: Cue → Routine → Reward. Cannabis became your routine for a cue (boredom, stress) to get a reward (relaxation, dopamine). You need a new routine — not no routine."
+    },
+    {
+      "type": "choice",
+      "question": "In the habit loop, what does cannabis replace when you quit?",
+      "options": [
+        { "text": "The cue", "correct": false },
+        { "text": "The reward", "correct": false },
+        { "text": "The routine", "correct": true },
+        { "text": "The entire loop", "correct": false }
+      ],
+      "explanation": "The cue (e.g. stress, boredom) and reward (relaxation, pleasure) still exist. What you're replacing is the routine — the specific action you take in response to the cue."
+    },
+    {
+      "type": "info",
+      "emoji": "📌",
+      "heading": "Stack, don't replace",
+      "body": "The easiest way to build a new habit is to attach it to something you already do. After dinner (existing habit) → take a 10-minute walk (new routine). This is called habit stacking."
+    },
+    {
+      "type": "true_false",
+      "statement": "You need to find one perfect replacement activity that does everything cannabis did.",
+      "answer": false,
+      "explanation": "Cannabis was serving multiple needs — relaxation, socialising, creativity, sleep. Different activities can fill different needs. A toolkit of 3–4 replacements is more realistic than one magic swap."
+    },
+    {
+      "type": "reflection",
+      "prompt": "What was cannabis mainly doing for you — relaxation, connection, creativity, or something else? What's one activity that could start filling that specific need?"
+    }
+  ]
+}

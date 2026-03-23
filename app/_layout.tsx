@@ -24,6 +24,14 @@ export default function RootLayout() {
           name="craving"
           options={{ presentation: 'fullScreenModal' }}
         />
+        <Stack.Screen
+          name="lesson/[id]"
+          options={{ presentation: 'fullScreenModal' }}
+        />
+        <Stack.Screen
+          name="journal/new"
+          options={{ presentation: 'modal' }}
+        />
       </Stack>
     </QueryClientProvider>
   )

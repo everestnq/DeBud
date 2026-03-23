@@ -1,0 +1,41 @@
+{
+  "id": "understanding-cravings-03",
+  "title": "Why You'll Feel Better",
+  "category": "understanding-cravings",
+  "xp": 25,
+  "cards": [
+    {
+      "type": "info",
+      "emoji": "📅",
+      "heading": "The recovery timeline",
+      "body": "Days 1–3: hardest, peak withdrawal. Days 4–14: sleep disruption, mood swings, appetite changes. Week 3–4: most symptoms ease. Month 2+: dopamine baseline restores, energy and focus return."
+    },
+    {
+      "type": "choice",
+      "question": "When does natural dopamine production typically start to restore after quitting?",
+      "options": [
+        { "text": "After 24 hours", "correct": false },
+        { "text": "After 1 week", "correct": false },
+        { "text": "After 4–8 weeks", "correct": true },
+        { "text": "It never fully restores", "correct": false }
+      ],
+      "explanation": "Full dopamine restoration usually takes 4–8 weeks. Some people notice improved mood and motivation sooner, but the full recovery continues for months."
+    },
+    {
+      "type": "info",
+      "emoji": "💤",
+      "heading": "Sleep will come back",
+      "body": "THC suppresses REM sleep. After quitting, vivid dreams and disrupted sleep are normal — your brain is recalibrating. It typically normalises within 3–4 weeks."
+    },
+    {
+      "type": "true_false",
+      "statement": "Vivid dreams after quitting cannabis are a sign something is wrong.",
+      "answer": false,
+      "explanation": "Vivid dreams are actually a sign of recovery. THC suppresses REM sleep — the dreaming phase. As REM returns, dreams become vivid. This is healthy."
+    },
+    {
+      "type": "reflection",
+      "prompt": "Which part of recovery are you most looking forward to — better sleep, more energy, clearer thinking, or something else? Why?"
+    }
+  ]
+}
