@@ -1,15 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { differenceInDays, parseISO, startOfDay } from 'date-fns'
-
-const storage = new MMKV({ id: 'streak-store' })
-
-const mmkvStorage = {
-  getItem: (name: string) => storage.getString(name) ?? null,
-  setItem: (name: string, value: string) => storage.set(name, value),
-  removeItem: (name: string) => storage.delete(name),
-}
 
 interface StreakState {
   quitDate: string | null
@@ -43,7 +35,7 @@ export const useStreakStore = create<StreakState>()(
     }),
     {
       name: 'streak-store',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => AsyncStorage),
     },
   ),
 )

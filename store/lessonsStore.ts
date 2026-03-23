@@ -1,15 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { differenceInDays, isSameDay, parseISO } from 'date-fns'
-
-const storage = new MMKV({ id: 'lessons-store' })
-
-const mmkvStorage = {
-  getItem: (name: string) => storage.getString(name) ?? null,
-  setItem: (name: string, value: string) => storage.set(name, value),
-  removeItem: (name: string) => storage.delete(name),
-}
 
 interface LessonsState {
   completedLessons: string[]
@@ -57,7 +49,7 @@ export const useLessonsStore = create<LessonsState>()(
     }),
     {
       name: 'lessons-store',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => AsyncStorage),
     },
   ),
 )

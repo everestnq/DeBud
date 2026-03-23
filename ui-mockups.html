@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeBud — UI Mockups</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary:   #2D6A4F;
+    --accent:    #52B788;
+    --warm:      #E07A36;
+    --gold:      #F0B429;
+    --bg:        #F4F9F6;
+    --card:      #FDFAF6;
+    --text:      #1A1A1A;
+    --muted:     #555F6B;
+    --white:     #FFFFFF;
+    --light:     #E8F5EE;
+    --border:    #E2EDE8;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #1C2B24;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 64px;
+    gap: 48px;
+  }
+
+  /* ── Page header ─────────────────────────── */
+  .page-header {
+    text-align: center;
+    color: white;
+  }
+  .page-header h1 { font-size: 28px; font-weight: 800; color: #52B788; }
+  .page-header p  { font-size: 14px; color: #7DB89A; margin-top: 6px; }
+
+  /* ── Screen groups ───────────────────────── */
+  .screen-group { width: 100%; max-width: 1200px; }
+  .group-label {
+    color: #7DB89A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+  .screen-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  /* ── Phone frame ─────────────────────────── */
+  .phone {
+    width: 320px;
+    height: 640px;
+    background: var(--bg);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 8px #2A3A32,
+      0 0 0 10px #1A2820,
+      0 32px 64px rgba(0,0,0,0.5);
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-label {
+    text-align: center;
+    color: #5A8570;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Status bar ──────────────────────────── */
+  .status-bar {
+    background: var(--bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  /* ── Screen content ──────────────────────── */
+  .screen {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    background: var(--bg);
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* ── Bottom nav ──────────────────────────── */
+  .tab-bar {
+    background: var(--white);
+    display: flex;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    padding: 8px 0 12px;
+  }
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .tab-item.active { color: var(--primary); }
+  .tab-icon { font-size: 20px; line-height: 1; }
+
+  /* ── Cards ───────────────────────────────── */
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  /* ─────────────────────────────────────────
+     HOME SCREEN
+  ───────────────────────────────────────── */
+  .home-header {
+    padding: 8px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .home-greeting { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .home-greeting strong { color: var(--text); display: block; font-size: 17px; font-weight: 700; }
+  .avatar {
+    width: 36px; height: 36px;
+    background: var(--light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .mascot-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px 0 0;
+  }
+  .mascot-caption {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 2px;
+    background: var(--light);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .streak-card {
+    margin: 10px 16px 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #3A8563 100%);
+    border-radius: 20px;
+    padding: 16px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(45,106,79,0.3);
+  }
+  .streak-num {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .streak-label { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+  .streak-ring {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    font-size: 10px; opacity: 0.85;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .streak-ring span { font-size: 18px; font-weight: 800; display: block; }
+
+  .savings-row { display: flex; gap: 10px; margin: 10px 16px 0; }
+  .savings-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .savings-icon { font-size: 20px; margin-bottom: 4px; }
+  .savings-value { font-size: 20px; font-weight: 800; color: var(--primary); }
+  .savings-label { font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 1px; }
+
+  .craving-btn {
+    margin: 12px 16px 0;
+    background: var(--warm);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    width: calc(100% - 32px);
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(224,122,54,0.35);
+    font-family: inherit;
+  }
+
+  .daily-card {
+    margin: 12px 16px 0;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .daily-card-left { flex: 1; }
+  .daily-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .daily-card-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .daily-card-chip  {
+    background: var(--light); color: var(--primary);
+    font-size: 10px; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* ─────────────────────────────────────────
+     LESSONS SCREEN
+  ───────────────────────────────────────── */
+  .screen-header {
+    padding: 10px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .screen-title { font-size: 22px; font-weight: 800; color: var(--text); }
+  .screen-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .xp-badge {
+    background: linear-gradient(135deg, var(--gold), #E8A020);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(240,180,41,0.4);
+  }
+
+  .today-lesson {
+    margin: 12px 16px 0;
+    background: linear-gradient(135deg, var(--primary), #3A8563);
+    border-radius: 20px;
+    padding: 18px 18px 14px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(45,106,79,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .today-lesson::before {
+    content: '';
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .today-chip {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .today-lesson h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .today-lesson p  { font-size: 12px; opacity: 0.8; line-height: 1.4; }
+  .today-lesson-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px;
+  }
+  .lesson-meta { font-size: 11px; opacity: 0.75; }
+  .start-btn {
+    background: white; color: var(--primary);
+    border: none; border-radius: 20px;
+    padding: 7px 16px; font-size: 12px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+  }
+
+  .section-heading {
+    padding: 14px 20px 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .lesson-item {
+    margin: 0 16px 8px;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .lesson-icon-wrap {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .lesson-icon-wrap.green  { background: var(--light); }
+  .lesson-icon-wrap.gold   { background: #FFF8E1; }
+  .lesson-icon-wrap.blue   { background: #EEF2FF; }
+  .lesson-icon-wrap.locked { background: #F0F0F0; }
+  .lesson-info { flex: 1; }
+  .lesson-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .lesson-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .lesson-state { flex-shrink: 0; }
+  .state-done { color: var(--accent); font-size: 18px; }
+  .state-lock { color: #C0C8D0; font-size: 16px; }
+  .state-xp {
+    background: var(--light); color: var(--primary);
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 10px;
+  }
+  .lesson-item.completed { opacity: 0.75; }
+  .lesson-item.locked .lesson-title { color: var(--muted); }
+
+  /* ─────────────────────────────────────────
+     JOURNAL SCREEN
+  ───────────────────────────────────────── */
+  .mood-prompt {
+    margin: 10px 16px 0;
+    background: linear-gradient(135deg, #FFF8F0, #FFF3E6);
+    border: 1.5px solid #F5D5B8;
+    border-radius: 20px;
+    padding: 16px;
+  }
+  .mood-prompt-label { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+  .mood-prompt-q     { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  .mood-row { display: flex; justify-content: space-around; }
+  .mood-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 24px; cursor: pointer;
+  }
+  .mood-btn span { font-size: 9px; color: var(--muted); font-weight: 600; }
+  .mood-btn.selected span { color: var(--warm); }
+  .mood-btn.selected { transform: scale(1.2); }
+
+  .journal-entry {
+    margin: 0 16px 8px;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .entry-emoji {
+    font-size: 28px;
+    width: 44px; height: 44px;
+    background: var(--light);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .entry-info { flex: 1; }
+  .entry-date  { font-size: 10px; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
+  .entry-note  { font-size: 12px; color: var(--text); line-height: 1.4; }
+  .entry-tag {
+    display: inline-block; margin-top: 5px;
+    background: var(--light); color: var(--primary);
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .entry-tag.craving { background: #FFF0E6; color: var(--warm); }
+
+  .fab {
+    position: sticky; bottom: 12px;
+    margin: 10px 16px 0;
+    background: var(--primary);
+    color: white;
+    border: none; border-radius: 14px;
+    padding: 14px;
+    width: calc(100% - 32px);
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.35);
+  }
+
+  /* ─────────────────────────────────────────
+     PROGRESS SCREEN
+  ───────────────────────────────────────── */
+  .stats-row { display: flex; gap: 10px; margin: 10px 16px 0; }
+  .stat-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .stat-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+  .stat-label { font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+  .progress-card {
+    margin: 10px 16px 0;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .progress-pct   { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .progress-bar-bg {
+    background: var(--light);
+    border-radius: 10px; height: 10px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    transition: width 0.3s;
+  }
+  .progress-sub { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  .milestone-list { margin: 10px 16px 0; display: flex; flex-direction: column; gap: 8px; }
+  .milestone-item {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .ms-check {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .ms-check.done   { background: var(--accent); color: white; }
+  .ms-check.next   { background: var(--gold); color: white; }
+  .ms-check.future { background: var(--light); color: var(--muted); border: 2px dashed var(--border); }
+  .ms-info { flex: 1; }
+  .ms-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .ms-sub   { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .ms-date  { font-size: 10px; color: var(--accent); font-weight: 600; }
+
+  /* ─────────────────────────────────────────
+     ONBOARDING
+  ───────────────────────────────────────── */
+  .onboard-bg { background: var(--bg); }
+
+  .onboard-welcome {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 20px 24px 24px; height: 100%;
+    text-align: center;
+  }
+  .onboard-welcome h1 { font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1.2; margin-bottom: 10px; }
+  .onboard-welcome p  { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+  .onboard-features { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .feature-row {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    text-align: left;
+  }
+  .feature-icon { font-size: 22px; width: 36px; text-align: center; }
+  .feature-text { font-size: 12px; font-weight: 600; color: var(--text); }
+  .feature-text span { font-weight: 400; color: var(--muted); display: block; font-size: 11px; }
+  .primary-btn {
+    width: 100%;
+    background: var(--primary);
+    color: white; border: none;
+    border-radius: 14px; padding: 16px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.3);
+    margin-top: auto;
+  }
+  .secondary-btn {
+    width: 100%; background: transparent;
+    color: var(--muted); border: none;
+    padding: 12px; font-size: 13px;
+    cursor: pointer; font-family: inherit; margin-top: 8px;
+  }
+
+  .onboard-body {
+    display: flex; flex-direction: column;
+    padding: 16px 24px 24px; flex: 1;
+  }
+  .onboard-progress-dots {
+    display: flex; gap: 6px; justify-content: center; margin-bottom: 24px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border);
+  }
+  .dot.active { background: var(--accent); width: 20px; border-radius: 4px; }
+  .onboard-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .onboard-sub   { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+
+  .date-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .date-option {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .date-option.selected { border-color: var(--accent); background: var(--light); }
+  .date-option-label { font-size: 14px; font-weight: 600; color: var(--text); }
+  .date-option-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .date-radio {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .date-option.selected .date-radio {
+    border-color: var(--accent); background: var(--accent);
+  }
+  .date-option.selected .date-radio::after {
+    content: ''; width: 8px; height: 8px;
+    background: white; border-radius: 50%;
+  }
+
+  .spend-input-wrap {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .spend-currency { font-size: 28px; font-weight: 800; color: var(--muted); }
+  .spend-value    { font-size: 40px; font-weight: 800; color: var(--text); flex: 1; }
+  .spend-per      { font-size: 13px; color: var(--muted); font-weight: 500; align-self: flex-end; padding-bottom: 6px; }
+  .spend-chips    { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .spend-chip {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+    cursor: pointer;
+  }
+  .spend-chip.selected {
+    background: var(--light);
+    border-color: var(--accent);
+    color: var(--primary);
+  }
+  .savings-preview {
+    background: linear-gradient(135deg, var(--primary), #3A8563);
+    border-radius: 14px; padding: 14px 16px;
+    color: white; margin-bottom: 20px;
+  }
+  .savings-preview-label { font-size: 11px; opacity: 0.8; margin-bottom: 4px; }
+  .savings-preview-val   { font-size: 20px; font-weight: 800; }
+  .savings-preview-sub   { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+  /* ─────────────────────────────────────────
+     CRAVING MODAL
+  ───────────────────────────────────────── */
+  .craving-screen {
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    height: 100%; overflow: hidden;
+  }
+  .modal-handle-wrap {
+    padding: 10px 0 0;
+    display: flex; justify-content: center;
+  }
+  .modal-handle {
+    width: 36px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .craving-progress-row {
+    display: flex; align-items: center;
+    padding: 12px 20px 0;
+    gap: 6px;
+  }
+  .craving-step-dot {
+    flex: 1; height: 4px; border-radius: 2px;
+    background: var(--border);
+  }
+  .craving-step-dot.done   { background: var(--accent); }
+  .craving-step-dot.active { background: var(--warm); }
+
+  /* Step 1 — Breathe */
+  .breathe-area {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 0 24px;
+    gap: 16px;
+  }
+  .breathe-label-top { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; }
+  .breathe-sub       { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.5; }
+  .breathe-circle-wrap {
+    position: relative;
+    width: 180px; height: 180px;
+  }
+  .breathe-circle-outer {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    opacity: 0.3;
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+  .breathe-circle-mid {
+    position: absolute; inset: 16px;
+    border-radius: 50%;
+    background: rgba(82,183,136,0.12);
+    animation: pulse-ring 4s ease-in-out infinite 0.3s;
+  }
+  .breathe-circle-inner {
+    position: absolute; inset: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    display: flex; align-items: center; justify-content: center;
+    animation: breathe 4s ease-in-out infinite;
+    box-shadow: 0 0 24px rgba(82,183,136,0.4);
+  }
+  .breathe-text { font-size: 13px; font-weight: 700; color: white; text-align: center; line-height: 1.3; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.12); }
+  }
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50%       { transform: scale(1.08); opacity: 0.15; }
+  }
+  .breathe-count { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .breathe-skip {
+    background: transparent; border: none;
+    color: var(--muted); font-size: 13px;
+    padding: 10px; cursor: pointer; font-family: inherit;
+  }
+
+  /* Step 2 — Distraction */
+  .distract-area {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 8px 20px 16px; gap: 12px;
+  }
+  .distract-header { font-size: 20px; font-weight: 800; color: var(--text); }
+  .distract-sub    { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: -6px; }
+  .distract-card {
+    background: linear-gradient(135deg, var(--primary), #3A8563);
+    border-radius: 20px; padding: 24px 20px;
+    color: white; flex: 1;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(45,106,79,0.25);
+  }
+  .distract-icon { font-size: 40px; margin-bottom: 10px; }
+  .distract-act  { font-size: 20px; font-weight: 800; line-height: 1.3; }
+  .distract-why  { font-size: 12px; opacity: 0.8; margin-top: 8px; line-height: 1.5; }
+  .distract-next {
+    background: rgba(255,255,255,0.2);
+    border: none; border-radius: 12px;
+    color: white; font-size: 13px; font-weight: 600;
+    padding: 12px; cursor: pointer; font-family: inherit;
+    margin-top: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  /* Step 3 — Log */
+  .log-area {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 8px 20px 16px; gap: 12px;
+    overflow-y: auto;
+  }
+  .log-label      { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .intensity-row  { display: flex; gap: 8px; }
+  .intensity-btn  {
+    flex: 1; background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px; padding: 10px 4px;
+    text-align: center; cursor: pointer;
+    font-family: inherit;
+  }
+  .intensity-btn .int-num { font-size: 16px; font-weight: 800; color: var(--text); }
+  .intensity-btn .int-lbl { font-size: 9px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .intensity-btn.active   { border-color: var(--warm); background: #FFF5EE; }
+  .intensity-btn.active .int-num { color: var(--warm); }
+  .trigger-chips  { display: flex; flex-wrap: wrap; gap: 6px; }
+  .trigger-chip {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 6px 12px;
+    font-size: 12px; font-weight: 500; color: var(--text);
+    cursor: pointer;
+  }
+  .trigger-chip.active {
+    background: var(--light); border-color: var(--accent);
+    color: var(--primary); font-weight: 600;
+  }
+  .log-note {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 12px 14px;
+    font-size: 13px; color: var(--muted);
+    font-family: inherit;
+  }
+
+  /* Step 4 — Mascot response */
+  .mascot-resp {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 16px 24px 24px;
+    text-align: center; gap: 12px;
+  }
+  .resp-badge {
+    background: var(--light); color: var(--primary);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+    padding: 4px 12px; border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .resp-title { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.3; }
+  .resp-msg   { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .resp-stat-row { display: flex; gap: 10px; width: 100%; }
+  .resp-stat {
+    flex: 1; background: var(--card);
+    border-radius: 14px; padding: 12px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .resp-stat-val { font-size: 20px; font-weight: 800; color: var(--primary); }
+  .resp-stat-lbl { font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+  /* ── Bud mascot SVG ──────────────────────── */
+  .bud { display: block; }
+
+  /* ── Scroll hint ─────────────────────────── */
+  .scroll-hint {
+    text-align: center;
+    color: #4A6E5A;
+    font-size: 12px;
+    margin-top: -8px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🌿 DeBud — UI Mockups</h1>
+  <p>Full screen reference for all app screens · Open in browser for best rendering</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB SCREENS
+════════════════════════════════════════════ -->
+<div class="screen-group">
+  <div class="group-label">📱 Tab Screens — app/(tabs)/</div>
+  <div class="screen-row">
+
+    <!-- HOME -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="home-header">
+            <div class="home-greeting">
+              Good morning,
+              <strong>Everest 🌿</strong>
+            </div>
+            <div class="avatar">🧑</div>
+          </div>
+
+          <!-- Mascot -->
+          <div class="mascot-area">
+            <svg class="bud" width="110" height="118" viewBox="0 0 120 130">
+              <ellipse cx="60" cy="118" rx="30" ry="8" fill="#C8855A" opacity="0.25"/>
+              <path d="M38 90 Q38 122 60 122 Q82 122 82 90 Z" fill="#C8855A"/>
+              <rect x="34" y="86" width="52" height="10" rx="5" fill="#B87350"/>
+              <ellipse cx="60" cy="86" rx="26" ry="6" fill="#5C3D2E"/>
+              <line x1="60" y1="86" x2="60" y2="52" stroke="#52B788" stroke-width="4" stroke-linecap="round"/>
+              <ellipse cx="44" cy="68" rx="16" ry="9" fill="#2D6A4F" transform="rotate(-25 44 68)"/>
+              <ellipse cx="76" cy="62" rx="16" ry="9" fill="#52B788" transform="rotate(25 76 62)"/>
+              <circle cx="60" cy="40" r="22" fill="url(#hg1)"/>
+              <circle cx="52" cy="38" r="5" fill="white"/>
+              <circle cx="68" cy="38" r="5" fill="white"/>
+              <circle cx="53" cy="39" r="3" fill="#1A1A1A"/>
+              <circle cx="69" cy="39" r="3" fill="#1A1A1A"/>
+              <circle cx="54" cy="38" r="1.2" fill="white"/>
+              <circle cx="70" cy="38" r="1.2" fill="white"/>
+              <path d="M52 48 Q60 55 68 48" stroke="#1A1A1A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="46" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.4"/>
+              <ellipse cx="74" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.4"/>
+              <defs>
+                <radialGradient id="hg1" cx="38%" cy="32%">
+                  <stop offset="0%" stop-color="#6DD4A0"/>
+                  <stop offset="100%" stop-color="#2D6A4F"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <div class="mascot-caption">Blooming · Day 28 🌸</div>
+          </div>
+
+          <!-- Streak -->
+          <div class="streak-card">
+            <div>
+              <div class="streak-num">28</div>
+              <div class="streak-label">days clean 🔥</div>
+            </div>
+            <div>
+              <div class="streak-ring">
+                <span>4</span>
+                weeks
+              </div>
+            </div>
+          </div>
+
+          <!-- Savings row -->
+          <div class="savings-row">
+            <div class="savings-card">
+              <div class="savings-icon">💰</div>
+              <div class="savings-value">$112</div>
+              <div class="savings-label">Money saved</div>
+            </div>
+            <div class="savings-card">
+              <div class="savings-icon">⏱</div>
+              <div class="savings-value">672h</div>
+              <div class="savings-label">Time free</div>
+            </div>
+            <div class="savings-card">
+              <div class="savings-icon">🧠</div>
+              <div class="savings-value">12</div>
+              <div class="savings-label">Lessons done</div>
+            </div>
+          </div>
+
+          <!-- Craving button -->
+          <button class="craving-btn">
+            🌊 I'm Craving Right Now
+          </button>
+
+          <!-- Daily lesson card -->
+          <div class="daily-card">
+            <div class="daily-card-left">
+              <div class="daily-card-title">📖 Today's Lesson Ready</div>
+              <div class="daily-card-sub">Managing social triggers</div>
+            </div>
+            <div class="daily-card-chip">+20 XP</div>
+          </div>
+
+          <div style="height:12px"></div>
+        </div>
+
+        <div class="tab-bar">
+          <div class="tab-item active"><div class="tab-icon">🏠</div>Home</div>
+          <div class="tab-item"><div class="tab-icon">📖</div>Lessons</div>
+          <div class="tab-item"><div class="tab-icon">📓</div>Journal</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>Progress</div>
+        </div>
+      </div>
+      <div class="phone-label">index.tsx · Home</div>
+    </div>
+
+    <!-- LESSONS -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="screen-header">
+            <div>
+              <div class="screen-title">Lessons</div>
+              <div class="screen-subtitle">5-day lesson streak 🔥</div>
+            </div>
+            <div class="xp-badge">⚡ 240 XP</div>
+          </div>
+
+          <!-- Today's featured lesson -->
+          <div class="today-lesson">
+            <div class="today-chip">TODAY'S LESSON</div>
+            <h3>Managing Social Triggers</h3>
+            <p>How to handle situations where others are using — without feeling left out.</p>
+            <div class="today-lesson-footer">
+              <span class="lesson-meta">3 min · +20 XP</span>
+              <button class="start-btn">Start →</button>
+            </div>
+          </div>
+
+          <div class="section-heading">Understanding Cravings</div>
+          <div class="lesson-item completed">
+            <div class="lesson-icon-wrap green">🧠</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Why Cravings Feel Overwhelming</div>
+              <div class="lesson-sub">2 min · Completed Mar 20</div>
+            </div>
+            <div class="lesson-state"><span class="state-done">✓</span></div>
+          </div>
+          <div class="lesson-item completed">
+            <div class="lesson-icon-wrap green">⏱</div>
+            <div class="lesson-info">
+              <div class="lesson-title">The 20-Minute Window</div>
+              <div class="lesson-sub">3 min · Completed Mar 21</div>
+            </div>
+            <div class="lesson-state"><span class="state-done">✓</span></div>
+          </div>
+
+          <div class="section-heading">Trigger Mapping</div>
+          <div class="lesson-item">
+            <div class="lesson-icon-wrap gold">🗺</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Mapping Your High-Risk Times</div>
+              <div class="lesson-sub">4 min · Available now</div>
+            </div>
+            <div class="lesson-state"><span class="state-xp">+25 XP</span></div>
+          </div>
+          <div class="lesson-item locked">
+            <div class="lesson-icon-wrap locked">🔒</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Breaking the After-Work Habit</div>
+              <div class="lesson-sub">Complete previous lesson</div>
+            </div>
+            <div class="lesson-state"><span class="state-lock">🔒</span></div>
+          </div>
+
+          <div class="section-heading">Habit Replacement</div>
+          <div class="lesson-item locked">
+            <div class="lesson-icon-wrap locked">🔒</div>
+            <div class="lesson-info">
+              <div class="lesson-title">Rewiring Your Reward Loop</div>
+              <div class="lesson-sub">Unlocks at Day 30</div>
+            </div>
+            <div class="lesson-state"><span class="state-lock">🔒</span></div>
+          </div>
+
+          <div style="height:12px"></div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">🏠</div>Home</div>
+          <div class="tab-item active"><div class="tab-icon">📖</div>Lessons</div>
+          <div class="tab-item"><div class="tab-icon">📓</div>Journal</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>Progress</div>
+        </div>
+      </div>
+      <div class="phone-label">lessons.tsx · Lesson Catalog</div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="screen-header">
+            <div>
+              <div class="screen-title">Journal</div>
+              <div class="screen-subtitle">How are you feeling?</div>
+            </div>
+          </div>
+
+          <!-- Mood prompt -->
+          <div class="mood-prompt">
+            <div class="mood-prompt-label">TODAY · MAR 23</div>
+            <div class="mood-prompt-q">How are you feeling right now?</div>
+            <div class="mood-row">
+              <div class="mood-btn"><span>😫</span><span>Rough</span></div>
+              <div class="mood-btn"><span>😕</span><span>Low</span></div>
+              <div class="mood-btn"><span>😐</span><span>Okay</span></div>
+              <div class="mood-btn selected"><span>🙂</span><span>Good</span></div>
+              <div class="mood-btn"><span>😄</span><span>Great</span></div>
+            </div>
+          </div>
+
+          <div class="section-heading">Recent Entries</div>
+
+          <div class="journal-entry">
+            <div class="entry-emoji">🙂</div>
+            <div class="entry-info">
+              <div class="entry-date">Mar 22 · 8:14 PM</div>
+              <div class="entry-note">Felt pretty solid today. Had a craving around 6pm but it passed. Going for a walk really helped.</div>
+              <span class="entry-tag">Craving resisted 💪</span>
+            </div>
+          </div>
+
+          <div class="journal-entry">
+            <div class="entry-emoji">😐</div>
+            <div class="entry-info">
+              <div class="entry-date">Mar 21 · 9:02 PM</div>
+              <div class="entry-note">Tired. Sleep is still weird. But 27 days feels surreal to say out loud.</div>
+            </div>
+          </div>
+
+          <div class="journal-entry">
+            <div class="entry-emoji">😄</div>
+            <div class="entry-info">
+              <div class="entry-date">Mar 20 · 7:45 PM</div>
+              <div class="entry-note">3 weeks! Had my best workout in months. Energy is actually coming back.</div>
+              <span class="entry-tag">🌸 Milestone day</span>
+            </div>
+          </div>
+
+          <div class="journal-entry">
+            <div class="entry-emoji">😕</div>
+            <div class="entry-info">
+              <div class="entry-date">Mar 19 · 8:33 PM</div>
+              <div class="entry-note">Rough evening, ran into some old friends. Used the breathing thing though.</div>
+              <span class="entry-tag craving">Craving logged</span>
+            </div>
+          </div>
+
+          <button class="fab">+ Add Entry</button>
+          <div style="height:12px"></div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">🏠</div>Home</div>
+          <div class="tab-item"><div class="tab-icon">📖</div>Lessons</div>
+          <div class="tab-item active"><div class="tab-icon">📓</div>Journal</div>
+          <div class="tab-item"><div class="tab-icon">📊</div>Progress</div>
+        </div>
+      </div>
+      <div class="phone-label">journal.tsx · Mood & Journal</div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="screen-header">
+            <div>
+              <div class="screen-title">Progress</div>
+              <div class="screen-subtitle">28 days and counting</div>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-value">28</div>
+              <div class="stat-label">Days clean</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">7</div>
+              <div class="stat-label">Cravings beat</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">12</div>
+              <div class="stat-label">Lessons done</div>
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="progress-card">
+            <div class="progress-header">
+              <div class="progress-title">🎯 Next milestone</div>
+              <div class="progress-pct">93%</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:93%"></div>
+            </div>
+            <div class="progress-sub">2 days until 30-day milestone 🌸</div>
+          </div>
+
+          <!-- Savings progress -->
+          <div class="progress-card" style="margin-top:10px">
+            <div class="progress-header">
+              <div class="progress-title">💰 Savings goal</div>
+              <div class="progress-pct">$112 / $150</div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:75%; background: linear-gradient(90deg, #F0B429, #E07A36);"></div>
+            </div>
+            <div class="progress-sub">$38 away from "nice dinner out" 🍽</div>
+          </div>
+
+          <div class="section-heading">Milestones</div>
+          <div class="milestone-list">
+            <div class="milestone-item">
+              <div class="ms-check done">✓</div>
+              <div class="ms-info">
+                <div class="ms-title">1 Day Clean</div>
+                <div class="ms-sub">The hardest day</div>
+              </div>
+              <div class="ms-date">Feb 24</div>
+            </div>
+            <div class="milestone-item">
+              <div class="ms-check done">✓</div>
+              <div class="ms-info">
+                <div class="ms-title">1 Week Clean</div>
+                <div class="ms-sub">Sleep starts improving</div>
+              </div>
+              <div class="ms-date">Mar 2</div>
+            </div>
+            <div class="milestone-item">
+              <div class="ms-check done">✓</div>
+              <div class="ms-info">
+                <div class="ms-title">2 Weeks Clean</div>
+                <div class="ms-sub">Mental fog lifting</div>
+              </div>
+              <div class="ms-date">Mar 9</div>
+            </div>
+            <div class="milestone-item" style="border: 2px solid #F0B429;">
+              <div class="ms-check next">★</div>
+              <div class="ms-info">
+                <div class="ms-title">30 Days Clean 🌸</div>
+                <div class="ms-sub">Bud blooms fully</div>
+              </div>
+              <div class="ms-date" style="color:var(--gold)">2 days</div>
+            </div>
+            <div class="milestone-item" style="opacity:0.6">
+              <div class="ms-check future">○</div>
+              <div class="ms-info">
+                <div class="ms-title">60 Days Clean</div>
+                <div class="ms-sub">Habit fully rewired</div>
+              </div>
+              <div class="ms-date">—</div>
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><div class="tab-icon">🏠</div>Home</div>
+          <div class="tab-item"><div class="tab-icon">📖</div>Lessons</div>
+          <div class="tab-item"><div class="tab-icon">📓</div>Journal</div>
+          <div class="tab-item active"><div class="tab-icon">📊</div>Progress</div>
+        </div>
+      </div>
+      <div class="phone-label">progress.tsx · Milestones & Stats</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ONBOARDING
+════════════════════════════════════════════ -->
+<div class="screen-group">
+  <div class="group-label">✨ Onboarding Flow — app/onboarding/</div>
+  <div class="screen-row">
+
+    <!-- WELCOME -->
+    <div>
+      <div class="phone">
+        <div class="status-bar" style="background:var(--bg)">
+          <span>9:41</span><span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="onboard-welcome">
+            <svg width="120" height="130" viewBox="0 0 120 130" style="margin-bottom:4px">
+              <path d="M38 90 Q38 122 60 122 Q82 122 82 90 Z" fill="#C8855A"/>
+              <rect x="34" y="86" width="52" height="10" rx="5" fill="#B87350"/>
+              <ellipse cx="60" cy="86" rx="26" ry="6" fill="#5C3D2E"/>
+              <line x1="60" y1="86" x2="60" y2="52" stroke="#52B788" stroke-width="4" stroke-linecap="round"/>
+              <ellipse cx="44" cy="68" rx="16" ry="9" fill="#2D6A4F" transform="rotate(-25 44 68)"/>
+              <ellipse cx="76" cy="62" rx="16" ry="9" fill="#52B788" transform="rotate(25 76 62)"/>
+              <circle cx="60" cy="40" r="22" fill="url(#wg1)"/>
+              <circle cx="52" cy="38" r="5" fill="white"/>
+              <circle cx="68" cy="38" r="5" fill="white"/>
+              <circle cx="53" cy="39" r="3" fill="#1A1A1A"/>
+              <circle cx="69" cy="39" r="3" fill="#1A1A1A"/>
+              <circle cx="54" cy="38" r="1.2" fill="white"/>
+              <circle cx="70" cy="38" r="1.2" fill="white"/>
+              <path d="M52 48 Q60 55 68 48" stroke="#1A1A1A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="46" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.4"/>
+              <ellipse cx="74" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.4"/>
+              <defs>
+                <radialGradient id="wg1" cx="38%" cy="32%">
+                  <stop offset="0%" stop-color="#6DD4A0"/>
+                  <stop offset="100%" stop-color="#2D6A4F"/>
+                </radialGradient>
+              </defs>
+            </svg>
+            <h1>Meet Bud.<br>Your quit companion.</h1>
+            <p>DeBud helps you track your sobriety, beat cravings in the moment, and understand your triggers — one day at a time.</p>
+            <div class="onboard-features">
+              <div class="feature-row">
+                <div class="feature-icon">🌱</div>
+                <div class="feature-text">Watch Bud grow with you<span>Your mascot evolves as your streak grows</span></div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">🌊</div>
+                <div class="feature-text">Beat cravings in the moment<span>Guided breathing + distraction tools</span></div>
+              </div>
+              <div class="feature-row">
+                <div class="feature-icon">📖</div>
+                <div class="feature-text">Daily 3-minute lessons<span>Understand your triggers, build new habits</span></div>
+              </div>
+            </div>
+            <button class="primary-btn">Let's get started 🌿</button>
+            <button class="secondary-btn">I already have an account</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">onboarding/index.tsx · Welcome</div>
+    </div>
+
+    <!-- QUIT DATE -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span><span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="onboard-body">
+            <div class="onboard-progress-dots">
+              <div class="dot done" style="background:var(--accent); width:20px; border-radius:4px"></div>
+              <div class="dot active"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="onboard-title">When did you last use?</div>
+            <div class="onboard-sub">We'll use this to calculate your streak and track your progress from day one.</div>
+            <div class="date-options">
+              <div class="date-option">
+                <div>
+                  <div class="date-option-label">Today</div>
+                  <div class="date-option-sub">Mar 23, 2026</div>
+                </div>
+                <div class="date-radio"></div>
+              </div>
+              <div class="date-option">
+                <div>
+                  <div class="date-option-label">Yesterday</div>
+                  <div class="date-option-sub">Mar 22, 2026</div>
+                </div>
+                <div class="date-radio"></div>
+              </div>
+              <div class="date-option selected">
+                <div>
+                  <div class="date-option-label">2–3 days ago</div>
+                  <div class="date-option-sub">Mar 20–21, 2026</div>
+                </div>
+                <div class="date-radio"></div>
+              </div>
+              <div class="date-option">
+                <div>
+                  <div class="date-option-label">Pick a specific date</div>
+                  <div class="date-option-sub">Use the calendar</div>
+                </div>
+                <div class="date-radio"></div>
+              </div>
+            </div>
+            <div style="background:var(--light); border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:12px; color:var(--primary); font-weight:600; line-height:1.5;">
+              🌱 No judgement here. Be honest with yourself — your streak is for you, not us.
+            </div>
+            <button class="primary-btn" style="margin-top:auto">Continue →</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">onboarding/quit-date.tsx</div>
+    </div>
+
+    <!-- SPEND -->
+    <div>
+      <div class="phone">
+        <div class="status-bar">
+          <span>9:41</span><span>●●● 5G 🔋</span>
+        </div>
+        <div class="screen">
+          <div class="onboard-body">
+            <div class="onboard-progress-dots">
+              <div class="dot" style="background:var(--accent); width:20px; border-radius:4px"></div>
+              <div class="dot" style="background:var(--accent)"></div>
+              <div class="dot active"></div>
+            </div>
+            <div class="onboard-title">Daily spend?</div>
+            <div class="onboard-sub">We'll show you how much money you're saving in real time — it's surprisingly motivating.</div>
+
+            <div class="spend-input-wrap">
+              <div class="spend-currency">$</div>
+              <div class="spend-value">15</div>
+              <div class="spend-per">/day</div>
+            </div>
+
+            <div class="spend-chips">
+              <div class="spend-chip">$5</div>
+              <div class="spend-chip">$10</div>
+              <div class="spend-chip selected">$15</div>
+              <div class="spend-chip">$20</div>
+              <div class="spend-chip">$30</div>
+              <div class="spend-chip">$40+</div>
+            </div>
+
+            <div class="savings-preview">
+              <div class="savings-preview-label">At $15/day, after 30 days you'll have saved:</div>
+              <div class="savings-preview-val">$450.00 💰</div>
+              <div class="savings-preview-sub">That's a weekend trip or new gear</div>
+            </div>
+
+            <button class="primary-btn">Let's do this 🌿</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">onboarding/spend.tsx</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CRAVING MODAL — 4 STEPS
+════════════════════════════════════════════ -->
+<div class="screen-group">
+  <div class="group-label">🆘 Craving Modal — app/craving.tsx · 4-step flow</div>
+  <div class="screen-row">
+
+    <!-- STEP 1 — BREATHE -->
+    <div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>●●● 5G 🔋</span></div>
+        <div class="screen" style="display:flex; flex-direction:column; height:100%">
+          <div class="craving-screen">
+            <div class="modal-handle-wrap"><div class="modal-handle"></div></div>
+            <div class="craving-progress-row">
+              <div class="craving-step-dot active"></div>
+              <div class="craving-step-dot"></div>
+              <div class="craving-step-dot"></div>
+              <div class="craving-step-dot"></div>
+            </div>
+            <div class="breathe-area">
+              <div class="breathe-label-top">You've got this.</div>
+              <div class="breathe-sub">Let's slow things down.<br>Follow Bud's breathing.</div>
+              <div class="breathe-circle-wrap">
+                <div class="breathe-circle-outer"></div>
+                <div class="breathe-circle-mid"></div>
+                <div class="breathe-circle-inner">
+                  <div class="breathe-text">Breathe<br>in…</div>
+                </div>
+              </div>
+              <div class="breathe-count">Round 1 of 3 · 4-7-8 breathing</div>
+              <button class="breathe-skip">Skip →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">Step 1 · Breathing</div>
+    </div>
+
+    <!-- STEP 2 — DISTRACTION -->
+    <div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>●●● 5G 🔋</span></div>
+        <div class="screen">
+          <div class="craving-screen">
+            <div class="modal-handle-wrap"><div class="modal-handle"></div></div>
+            <div class="craving-progress-row">
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot active"></div>
+              <div class="craving-step-dot"></div>
+              <div class="craving-step-dot"></div>
+            </div>
+            <div class="distract-area">
+              <div class="distract-header">Try this right now.</div>
+              <div class="distract-sub">Most cravings peak at 20 minutes then pass. Let's get through it.</div>
+              <div class="distract-card">
+                <div>
+                  <div class="distract-icon">🚶</div>
+                  <div class="distract-act">Go for a 5-minute walk</div>
+                  <div class="distract-why">Physical movement floods your brain with dopamine and quickly interrupts the craving cycle.</div>
+                </div>
+                <button class="distract-next">↻ Give me another idea</button>
+              </div>
+              <button class="primary-btn" style="margin-top:0">That helped → Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">Step 2 · Distraction</div>
+    </div>
+
+    <!-- STEP 3 — LOG -->
+    <div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>●●● 5G 🔋</span></div>
+        <div class="screen">
+          <div class="craving-screen">
+            <div class="modal-handle-wrap"><div class="modal-handle"></div></div>
+            <div class="craving-progress-row">
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot active"></div>
+              <div class="craving-step-dot"></div>
+            </div>
+            <div class="log-area">
+              <div style="font-size:18px; font-weight:800; color:var(--text)">Log this craving</div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-top:-6px">Optional — helps you spot your patterns over time.</div>
+              <div class="log-label">How intense was it?</div>
+              <div class="intensity-row">
+                <button class="intensity-btn"><div class="int-num">1</div><div class="int-lbl">Mild</div></button>
+                <button class="intensity-btn"><div class="int-num">2</div><div class="int-lbl"></div></button>
+                <button class="intensity-btn active"><div class="int-num">3</div><div class="int-lbl">Medium</div></button>
+                <button class="intensity-btn"><div class="int-num">4</div><div class="int-lbl"></div></button>
+                <button class="intensity-btn"><div class="int-num">5</div><div class="int-lbl">Strong</div></button>
+              </div>
+              <div class="log-label">What triggered it?</div>
+              <div class="trigger-chips">
+                <div class="trigger-chip active">😤 Stress</div>
+                <div class="trigger-chip">🎉 Social</div>
+                <div class="trigger-chip">😴 Boredom</div>
+                <div class="trigger-chip">🌙 Evening</div>
+                <div class="trigger-chip">😢 Emotions</div>
+                <div class="trigger-chip">🍺 Alcohol</div>
+              </div>
+              <div class="log-label">Add a note (optional)</div>
+              <div class="log-note">Long day at work, phone kept going off…</div>
+              <button class="primary-btn">Save & Finish ✓</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">Step 3 · Log Craving</div>
+    </div>
+
+    <!-- STEP 4 — MASCOT RESPONSE -->
+    <div>
+      <div class="phone">
+        <div class="status-bar"><span>9:41</span><span>●●● 5G 🔋</span></div>
+        <div class="screen">
+          <div class="craving-screen">
+            <div class="modal-handle-wrap"><div class="modal-handle"></div></div>
+            <div class="craving-progress-row">
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot done"></div>
+              <div class="craving-step-dot active"></div>
+            </div>
+            <div class="mascot-resp">
+              <div class="resp-badge">✓ Craving survived</div>
+              <svg width="100" height="108" viewBox="0 0 120 130">
+                <path d="M38 90 Q38 122 60 122 Q82 122 82 90 Z" fill="#C8855A"/>
+                <rect x="34" y="86" width="52" height="10" rx="5" fill="#B87350"/>
+                <ellipse cx="60" cy="86" rx="26" ry="6" fill="#5C3D2E"/>
+                <line x1="60" y1="86" x2="60" y2="52" stroke="#52B788" stroke-width="4" stroke-linecap="round"/>
+                <ellipse cx="44" cy="68" rx="16" ry="9" fill="#2D6A4F" transform="rotate(-25 44 68)"/>
+                <ellipse cx="76" cy="62" rx="16" ry="9" fill="#52B788" transform="rotate(25 76 62)"/>
+                <circle cx="60" cy="40" r="22" fill="url(#rg1)"/>
+                <!-- Happy eyes — crescents -->
+                <path d="M47 37 Q52 32 57 37" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M63 37 Q68 32 73 37" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M50 48 Q60 57 70 48" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <ellipse cx="46" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.5"/>
+                <ellipse cx="74" cy="45" rx="5" ry="3" fill="#E07A36" opacity="0.5"/>
+                <!-- Arms reaching out -->
+                <path d="M38 72 Q28 66 22 70" stroke="#52B788" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <path d="M82 72 Q92 66 98 70" stroke="#52B788" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <defs>
+                  <radialGradient id="rg1" cx="38%" cy="32%">
+                    <stop offset="0%" stop-color="#7FDCB0"/>
+                    <stop offset="100%" stop-color="#2D6A4F"/>
+                  </radialGradient>
+                </defs>
+              </svg>
+              <div class="resp-title">You just beat a craving. 💪</div>
+              <div class="resp-msg">That takes real strength. Every time you push through, you're literally rewiring your brain. Bud is proud of you.</div>
+              <div class="resp-stat-row">
+                <div class="resp-stat">
+                  <div class="resp-stat-val">7</div>
+                  <div class="resp-stat-lbl">Cravings beaten</div>
+                </div>
+                <div class="resp-stat">
+                  <div class="resp-stat-val">28</div>
+                  <div class="resp-stat-lbl">Day streak</div>
+                </div>
+              </div>
+              <button class="primary-btn" style="margin-top:4px">Back home 🌿</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">Step 4 · Mascot Response</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

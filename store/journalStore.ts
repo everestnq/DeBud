@@ -1,14 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { MMKV } from 'react-native-mmkv'
-
-const storage = new MMKV({ id: 'journal-store' })
-
-const mmkvStorage = {
-  getItem: (name: string) => storage.getString(name) ?? null,
-  setItem: (name: string, value: string) => storage.set(name, value),
-  removeItem: (name: string) => storage.delete(name),
-}
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export interface MoodEntry {
   id: string
@@ -45,7 +37,7 @@ export const useJournalStore = create<JournalState>()(
     }),
     {
       name: 'journal-store',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => AsyncStorage),
     },
   ),
 )

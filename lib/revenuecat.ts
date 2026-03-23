@@ -1,39 +1,12 @@
-import Purchases, { LOG_LEVEL } from 'react-native-purchases'
-import { Platform } from 'react-native'
-import { useEffect, useState } from 'react'
-
-const RC_API_KEY_IOS = process.env.EXPO_PUBLIC_RC_IOS_KEY ?? ''
-const RC_API_KEY_ANDROID = process.env.EXPO_PUBLIC_RC_ANDROID_KEY ?? ''
+// RevenueCat requires a native build (npx expo run:ios / run:android).
+// This stub lets the app run in Expo Go / dev without crashing.
 
 export function initRevenueCat() {
-  const apiKey = Platform.OS === 'ios' ? RC_API_KEY_IOS : RC_API_KEY_ANDROID
-  if (!apiKey) return
-  Purchases.setLogLevel(LOG_LEVEL.ERROR)
-  Purchases.configure({ apiKey })
+  // no-op until native build
 }
 
-export function usePremium() {
-  const [isPremium, setIsPremium] = useState(false)
-
-  useEffect(() => {
-    let cancelled = false
-
-    Purchases.getCustomerInfo()
-      .then((info) => {
-        if (!cancelled) {
-          setIsPremium('debudPremium' in info.entitlements.active)
-        }
-      })
-      .catch(() => {
-        /* offline — default to false */
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  return isPremium
+export function usePremium(): boolean {
+  return false
 }
 
 export const PRODUCTS = {
