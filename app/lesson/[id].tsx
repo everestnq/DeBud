@@ -13,7 +13,7 @@ import {
   ViewStyle,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { LESSON_REGISTRY, LESSON_SECTIONS } from '@/content/lessons'
@@ -391,6 +391,7 @@ function CompletionScreen({
 
 // --- Main screen ---
 export default function LessonScreen() {
+  const insets = useSafeAreaInsets()
   const { id } = useLocalSearchParams<{ id: string }>()
   const router = useRouter()
   const { completeLesson, completedLessons } = useLessonsStore()
@@ -456,25 +457,25 @@ export default function LessonScreen() {
 
   if (!lesson) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <Text style={styles.errorText}>Lesson not found.</Text>
         <TouchableOpacity onPress={handleBack}>
           <Text style={styles.errorBack}>← Back</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     )
   }
 
   if (completed) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
         <CompletionScreen
           lessonId={lesson.id}
           xp={lesson.xp}
           onBack={handleBack}
           onNext={nextLessonId ? handleNextLesson : null}
         />
-      </SafeAreaView>
+      </View>
     )
   }
 
@@ -482,9 +483,9 @@ export default function LessonScreen() {
   const alreadyDone = completedLessons.includes(lesson.id)
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Top bar */}
-      <View style={styles.topBar}>
+    <View style={styles.container}>
+      {/* Top bar — paddingTop uses live inset so it clears Dynamic Island / notch / status bar on all devices */}
+      <View style={[styles.topBar, { paddingTop: insets.top + 8 }]}>
         <TouchableOpacity onPress={handleBack} style={styles.closeBtn} activeOpacity={0.7}>
           <Text style={styles.closeBtnText}>✕</Text>
         </TouchableOpacity>
@@ -513,12 +514,12 @@ export default function LessonScreen() {
       </ScrollView>
 
       {/* Card counter */}
-      <View style={styles.cardCounter}>
+      <View style={[styles.cardCounter, { paddingBottom: Math.max(insets.bottom, 12) }]}>
         <Text style={styles.cardCounterText}>
           {cardIndex + 1} / {lesson.cards.length}
         </Text>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -531,7 +532,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingBottom: 10,
     gap: 10,
   },
   closeBtn: {

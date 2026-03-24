@@ -9,25 +9,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
 import Svg, { Line } from 'react-native-svg'
+import { Check, Lock, Play } from 'lucide-react-native'
 import { useLessonsStore } from '@/store/lessonsStore'
 import { LESSON_SECTIONS } from '@/content/lessons'
+import { BudSVG } from '@/components/mascot/BudSVG'
 import { colors } from '@/constants/colors'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
 
 // Layout constants
-const NODE_SIZE = 72
-const H_PADDING = 40
-const INNER_WIDTH = SCREEN_WIDTH - H_PADDING * 2
-// Zigzag: left / right alternating columns
+const NODE_SIZE = 64
+const H_PADDING = 44
 const LEFT_X = H_PADDING + NODE_SIZE / 2
 const RIGHT_X = SCREEN_WIDTH - H_PADDING - NODE_SIZE / 2
-const CENTER_X = SCREEN_WIDTH / 2
-const ROW_HEIGHT = 110
+const ROW_HEIGHT = 112
+// Space above the first node row for section banners + mascot
+const TOP_OFFSET = 88
 
 type NodeState = 'completed' | 'current' | 'locked' | 'milestone'
 
@@ -38,27 +39,22 @@ interface LessonNode {
   state: NodeState
   x: number
   y: number
-  sectionTitle?: string   // set on first node of each section
+  sectionTitle?: string
 }
-
-interface PathPoint { x: number; y: number }
 
 function buildNodes(completedLessons: string[]): { nodes: LessonNode[]; totalHeight: number } {
   const nodes: LessonNode[] = []
   let row = 0
 
-  LESSON_SECTIONS.forEach((section, sIdx) => {
+  LESSON_SECTIONS.forEach((section) => {
     section.lessons.forEach((lessonId, lIdx) => {
       const isMilestone = lIdx === section.lessons.length - 1
-      // Zigzag: even rows go left, odd rows go right
       const x = row % 2 === 0 ? LEFT_X : RIGHT_X
 
       let state: NodeState
       if (completedLessons.includes(lessonId)) {
         state = isMilestone ? 'milestone' : 'completed'
       } else {
-        // Unlock if all previous lessons are done
-        const allPrev = nodes.every((n) => completedLessons.includes(n.lessonId))
         const prevDone = row === 0 || completedLessons.includes(nodes[row - 1]?.lessonId)
         if (prevDone) {
           state = isMilestone ? 'milestone' : 'current'
@@ -73,21 +69,21 @@ function buildNodes(completedLessons: string[]): { nodes: LessonNode[]; totalHei
         xp: getLessonXp(lessonId),
         state,
         x,
-        y: 80 + row * ROW_HEIGHT,
+        y: TOP_OFFSET + row * ROW_HEIGHT,
         sectionTitle: lIdx === 0 ? section.title : undefined,
       })
       row++
     })
   })
 
-  return { nodes, totalHeight: 80 + row * ROW_HEIGHT + 80 }
+  return { nodes, totalHeight: TOP_OFFSET + row * ROW_HEIGHT + 60 }
 }
 
 function getLessonTitle(id: string): string {
   const TITLES: Record<string, string> = {
     'understanding-cravings-01': 'Why Cravings Feel Overwhelming',
     'understanding-cravings-02': 'The 20-Minute Window',
-    'understanding-cravings-03': 'Why You\'ll Feel Better',
+    'understanding-cravings-03': "Why You'll Feel Better",
     'trigger-mapping-01': 'Mapping Your Triggers',
     'trigger-mapping-02': 'High-Risk Times',
     'trigger-mapping-03': 'People & Place Triggers',
@@ -111,65 +107,103 @@ function getLessonXp(id: string): number {
   return XP[id] ?? 20
 }
 
-// Pulsing ring animation for current node
-function PulseRing({ size }: { size: number }) {
-  const scale = useRef(new Animated.Value(1)).current
-  const opacity = useRef(new Animated.Value(0.6)).current
+// --- Mascot bubble above current node ---
+function BudBubble({ node }: { node: LessonNode }) {
+  const fadeAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    Animated.loop(
-      Animated.parallel([
-        Animated.sequence([
-          Animated.timing(scale, { toValue: 1.5, duration: 900, easing: Easing.out(Easing.ease), useNativeDriver: true }),
-          Animated.timing(scale, { toValue: 1, duration: 900, easing: Easing.in(Easing.ease), useNativeDriver: true }),
-        ]),
-        Animated.sequence([
-          Animated.timing(opacity, { toValue: 0, duration: 900, useNativeDriver: true }),
-          Animated.timing(opacity, { toValue: 0.6, duration: 900, useNativeDriver: true }),
-        ]),
-      ])
-    ).start()
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 600,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start()
   }, [])
+
+  // Position: centered on the node's x, sitting above the node
+  const MASCOT_SIZE = 48
+  const BUBBLE_HEIGHT = 28
+  const BUBBLE_MARGIN = 6
+  const totalHeight = MASCOT_SIZE + BUBBLE_HEIGHT + BUBBLE_MARGIN
+  const topY = node.y - NODE_SIZE / 2 - totalHeight - 8
 
   return (
     <Animated.View
-      style={{
-        position: 'absolute',
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        borderWidth: 3,
-        borderColor: colors.accent,
-        transform: [{ scale }],
-        opacity,
-      }}
+      style={[styles.budBubbleWrap, { left: node.x - 60, top: topY, opacity: fadeAnim }]}
       pointerEvents="none"
-    />
+    >
+      {/* Speech bubble */}
+      <View style={styles.speechBubble}>
+        <Text style={styles.speechBubbleText}>Keep going!</Text>
+      </View>
+      <View style={styles.speechBubbleTail} />
+      {/* Mascot */}
+      <BudSVG width={MASCOT_SIZE} height={MASCOT_SIZE} mood="normal" />
+    </Animated.View>
   )
 }
 
+// --- Node circle ---
 function LessonNodeView({ node, onPress }: { node: LessonNode; onPress: () => void }) {
   const { state, title, xp } = node
-
   const isLeft = node.x < SCREEN_WIDTH / 2
-  const isCompleted = state === 'completed' || (state === 'milestone' && true)
-  const isCurrent = state === 'current'
-  const isMilestone = state === 'milestone'
   const isLocked = state === 'locked'
-  const done = isCompleted && !isMilestone
+  const isCurrent = state === 'current'
+  const isCompleted = state === 'completed'
+  const isMilestone = state === 'milestone'
 
-  // Done milestone: treat as completed
-  const lessonDone = done || (isMilestone && isCompleted)
+  // Pulse scale animation for current node
+  const pulseScale = useRef(new Animated.Value(1)).current
+  useEffect(() => {
+    if (!isCurrent) return
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseScale, {
+          toValue: 1.08,
+          duration: 600,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseScale, {
+          toValue: 1.0,
+          duration: 600,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ])
+    ).start()
+    return () => pulseScale.stopAnimation()
+  }, [isCurrent])
 
-  let nodeColor = '#D5E8DC'
-  let borderColor = '#B0C4B8'
-  let emoji = '🔒'
-  if (state === 'completed') { nodeColor = colors.accent; borderColor = colors.primary; emoji = '✓' }
-  if (state === 'milestone' && isCompleted) { nodeColor = colors.gold; borderColor = '#D4900A'; emoji = '⭐' }
-  if (state === 'milestone' && !isCompleted) { nodeColor = '#FFF3CD'; borderColor = '#F0B429'; emoji = '⭐' }
-  if (state === 'current') { nodeColor = colors.primary; borderColor = '#1E4D38'; emoji = '▶' }
+  // Node appearance
+  let bgColor = '#DDE6E2'
+  if (isCompleted) bgColor = colors.accent   // #52B788
+  if (isCurrent)   bgColor = colors.warm     // #E07A36
+  if (isMilestone) bgColor = isCompleted ? colors.gold : '#FFF3CD'
 
-  const labelRight = isLeft
+  const labelSide = isLeft ? { left: NODE_SIZE + 10 } : { right: NODE_SIZE + 10 }
+
+  const nodeInner = (
+    <View
+      style={[
+        styles.nodeCircle,
+        {
+          width: NODE_SIZE,
+          height: NODE_SIZE,
+          borderRadius: NODE_SIZE / 2,
+          backgroundColor: bgColor,
+        },
+        isCurrent && styles.nodeCircleCurrent,
+        (isCompleted || (isMilestone && isCompleted)) && styles.nodeCircleCompleted,
+      ]}
+    >
+      {isCompleted && <Check size={28} color="#FFFFFF" strokeWidth={3} />}
+      {isCurrent   && <Play size={26} color="#FFFFFF" fill="#FFFFFF" />}
+      {isLocked    && <Lock size={24} color="#9AB0A6" strokeWidth={2} />}
+      {isMilestone && !isCompleted && <Text style={styles.milestoneEmoji}>⭐</Text>}
+      {isMilestone && isCompleted  && <Text style={styles.milestoneEmoji}>⭐</Text>}
+    </View>
+  )
 
   return (
     <TouchableOpacity
@@ -181,35 +215,22 @@ function LessonNodeView({ node, onPress }: { node: LessonNode; onPress: () => vo
         { left: node.x - NODE_SIZE / 2, top: node.y - NODE_SIZE / 2 },
       ]}
     >
-      {isCurrent && <PulseRing size={NODE_SIZE} />}
-      <View
-        style={[
-          styles.nodeCircle,
-          {
-            width: NODE_SIZE,
-            height: NODE_SIZE,
-            borderRadius: NODE_SIZE / 2,
-            backgroundColor: nodeColor,
-            borderColor,
-            borderWidth: isCurrent ? 3 : 2,
-            opacity: isLocked ? 0.55 : 1,
-          },
-        ]}
-      >
-        <Text style={[styles.nodeEmoji, state === 'completed' && styles.nodeCheckmark]}>
-          {emoji}
-        </Text>
-      </View>
+      {isCurrent ? (
+        <Animated.View style={{ transform: [{ scale: pulseScale }] }}>
+          {nodeInner}
+        </Animated.View>
+      ) : (
+        nodeInner
+      )}
+
       {/* Label */}
-      <View
-        style={[
-          styles.nodeLabel,
-          labelRight
-            ? { left: NODE_SIZE + 8 }
-            : { right: NODE_SIZE + 8 },
-        ]}
-      >
-        <Text style={styles.nodeLabelTitle} numberOfLines={2}>{title}</Text>
+      <View style={[styles.nodeLabel, labelSide]}>
+        <Text
+          style={[styles.nodeLabelTitle, isLocked && styles.nodeLabelTitleMuted]}
+          numberOfLines={2}
+        >
+          {title}
+        </Text>
         {!isLocked && (
           <Text style={styles.nodeLabelXp}>+{xp} XP</Text>
         )}
@@ -219,39 +240,36 @@ function LessonNodeView({ node, onPress }: { node: LessonNode; onPress: () => vo
 }
 
 export default function LessonsScreen() {
+  const insets = useSafeAreaInsets()
   const { completedLessons, xp, lessonStreak } = useLessonsStore()
   const router = useRouter()
   const scrollRef = useRef<ScrollView>(null)
 
   const { nodes, totalHeight } = buildNodes(completedLessons)
-
-  // Find current node to auto-scroll
   const currentNode = nodes.find((n) => n.state === 'current')
+  const sectionHeaders = nodes.filter((n) => n.sectionTitle)
 
   useEffect(() => {
     if (currentNode && scrollRef.current) {
       setTimeout(() => {
-        scrollRef.current?.scrollTo({ y: Math.max(0, currentNode.y - 200), animated: true })
+        scrollRef.current?.scrollTo({ y: Math.max(0, currentNode.y - 220), animated: true })
       }, 400)
     }
   }, [])
 
-  // Build SVG path lines between consecutive nodes
-  const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = []
+  // Build connector lines with colour based on node states
+  const lines: Array<{ x1: number; y1: number; x2: number; y2: number; done: boolean }> = []
   for (let i = 0; i < nodes.length - 1; i++) {
-    lines.push({
-      x1: nodes[i].x,
-      y1: nodes[i].y,
-      x2: nodes[i + 1].x,
-      y2: nodes[i + 1].y,
-    })
+    const a = nodes[i]
+    const b = nodes[i + 1]
+    const done =
+      (a.state === 'completed' || a.state === 'milestone') &&
+      (b.state === 'completed' || b.state === 'milestone')
+    lines.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, done })
   }
 
-  // Section header positions: first node of each section
-  const sectionHeaders = nodes.filter((n) => n.sectionTitle)
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       {/* XP header */}
       <View style={styles.header}>
         <View>
@@ -274,7 +292,7 @@ export default function LessonsScreen() {
         contentContainerStyle={{ height: totalHeight }}
         style={styles.pathScroll}
       >
-        {/* SVG dashed connecting lines */}
+        {/* SVG dashed connector lines */}
         <Svg
           width={SCREEN_WIDTH}
           height={totalHeight}
@@ -288,7 +306,7 @@ export default function LessonsScreen() {
               y1={l.y1}
               x2={l.x2}
               y2={l.y2}
-              stroke="#C5DDD0"
+              stroke={l.done ? colors.accent : '#C8D8CE'}
               strokeWidth={3}
               strokeDasharray="8,6"
               strokeLinecap="round"
@@ -296,11 +314,11 @@ export default function LessonsScreen() {
           ))}
         </Svg>
 
-        {/* Section header banners */}
+        {/* Section banners */}
         {sectionHeaders.map((node) => (
           <View
             key={node.lessonId + '-header'}
-            style={[styles.sectionBanner, { top: node.y - NODE_SIZE / 2 - 36 }]}
+            style={[styles.sectionBanner, { top: node.y - NODE_SIZE / 2 - 34 }]}
           >
             <LinearGradient
               colors={['#2D6A4F', '#3A8563']}
@@ -312,6 +330,9 @@ export default function LessonsScreen() {
             </LinearGradient>
           </View>
         ))}
+
+        {/* Bud mascot above current node */}
+        {currentNode && <BudBubble node={currentNode} />}
 
         {/* Lesson nodes */}
         {nodes.map((node) => (
@@ -337,7 +358,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: 20,
     paddingTop: 10,
-    paddingBottom: 8,
+    paddingBottom: 10,
   },
   title: {
     fontSize: 22,
@@ -380,12 +401,48 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionBannerText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: colors.white,
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
     textTransform: 'uppercase',
   },
+  // Mascot bubble
+  budBubbleWrap: {
+    position: 'absolute',
+    width: 120,
+    alignItems: 'center',
+  },
+  speechBubble: {
+    backgroundColor: colors.card,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#E0EDE6',
+  },
+  speechBubbleText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.primary,
+  },
+  speechBubbleTail: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 6,
+    borderRightWidth: 6,
+    borderTopWidth: 7,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderTopColor: colors.card,
+    marginTop: -1,
+  },
+  // Node
   nodeWrap: {
     position: 'absolute',
     width: NODE_SIZE,
@@ -394,26 +451,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nodeCircle: {
+    width: NODE_SIZE,
+    height: NODE_SIZE,
+    borderRadius: NODE_SIZE / 2,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.12,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.14,
     shadowRadius: 6,
-    elevation: 3,
+    elevation: 4,
   },
-  nodeEmoji: {
-    fontSize: 24,
+  nodeCircleCompleted: {
+    shadowColor: colors.accent,
+    shadowOpacity: 0.3,
   },
-  nodeCheckmark: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: colors.white,
+  nodeCircleCurrent: {
+    shadowColor: colors.warm,
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  milestoneEmoji: {
+    fontSize: 26,
   },
   nodeLabel: {
     position: 'absolute',
-    width: 120,
-    top: 0,
+    width: 114,
+    top: 6,
   },
   nodeLabelTitle: {
     fontSize: 11,
@@ -421,10 +486,13 @@ const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 15,
   },
+  nodeLabelTitleMuted: {
+    color: colors.muted,
+  },
   nodeLabelXp: {
     fontSize: 10,
     fontWeight: '700',
     color: colors.accent,
-    marginTop: 2,
+    marginTop: 3,
   },
 })

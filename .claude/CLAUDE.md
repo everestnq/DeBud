@@ -34,6 +34,7 @@ DeBud/
 │   │   ├── journal.tsx         # Mood log + journal entries
 │   │   └── progress.tsx        # Stats, milestones, heatmap
 │   ├── craving.tsx             # Panic button flow (modal)
+│   ├── paywall.tsx             # Subscription paywall (shown post-onboarding if no access)
 │   ├── onboarding/
 │   │   ├── index.tsx           # Welcome screen
 │   │   ├── quit-date.tsx       # Set quit date
@@ -205,16 +206,39 @@ Each maps to a Lottie JSON in `assets/lottie/`.
 
 ## Monetization (RevenueCat)
 
-**Free tier:** streak tracker, basic craving button, 5 journal entries/week, first 10 lessons, 2 mascot states.
+**Model: Full subscription — no freemium, no free tier.**
 
-**Premium entitlement (`debudPremium`):** unlimited journal, all lessons, all mascot states, craving analytics, cloud sync.
+All app features are fully accessible only to subscribers. New users get a **7-day free trial** before being charged. After onboarding, users hit a paywall screen (`app/paywall.tsx`) before accessing the main app. There is no way to bypass the paywall.
 
-**Products:**
-- `debudMonthly` — $3.99/month
-- `debudAnnual` — $24.99/year
-- `debudLifetime` — $49.99 one-time
+**Trial & billing flow:**
+1. User completes onboarding (3 screens)
+2. Paywall screen shown — presents plans, highlights trial offer ("Try free for 7 days")
+3. User selects a plan and subscribes via RevenueCat/StoreKit/Google Play Billing
+4. 7-day free trial begins — full access immediately
+5. Auto-billed on day 8 if not cancelled
+6. Cancellation stops renewal; access continues until period ends
 
-Gate features with a `usePremium()` hook that reads the RevenueCat entitlement.
+**Products (RevenueCat product IDs):**
+- `debudMonthly` — $2.99/month (after 7-day free trial)
+- `debudAnnual` — $19.99/year (~$1.67/month, after 7-day free trial) — **highlight as best value with "Save 44%" badge**
+
+**Paywall presentation:**
+- Show annual plan first/prominently as the default selected option
+- Display annual as "$1.67/month, billed $19.99/year" so users see the per-month comparison directly
+- Show monthly below it as "$2.99/month"
+- Both plans start with "Try free for 7 days" — make this the headline CTA
+- After trial copy: "Then [price]. Cancel anytime."
+
+**Entitlement:** `debudAccess` — granted to all active subscribers (including trial). Check this single entitlement everywhere access is needed.
+
+**Subscription check:**
+- Use a `useAccess()` hook (wraps RevenueCat `getCustomerInfo`) that returns `{ hasAccess: boolean, isTrialing: boolean }`
+- On app launch, if `hasAccess` is false → redirect to `app/paywall.tsx`
+- Do NOT use a `usePremium()` hook or any feature-level gating — access is all-or-nothing
+
+**Restore purchases:** Always show a "Restore purchases" link on the paywall screen. Use `Purchases.restorePurchases()` from RevenueCat.
+
+**No lifetime option.** Subscriptions only — simplifies revenue model and App Store review.
 
 ---
 
@@ -222,9 +246,9 @@ Gate features with a `usePremium()` hook that reads the RevenueCat entitlement.
 
 Only used for:
 1. **Auth** — magic link / email (no passwords)
-2. **Cloud sync** — premium only; syncs streak, journal, and lesson progress
+2. **Cloud sync** — syncs streak, journal, and lesson progress for all subscribers
 
-All core data lives locally in MMKV first. Supabase is an optional sync layer, not a hard dependency.
+All core data lives locally in MMKV first. Supabase is an optional sync layer, not a hard dependency. Auth is not required to use the app — users can skip sign-in and remain local-only. Show a "Back up your progress" prompt after day 3 to encourage sign-in.
 
 **Tables:** `profiles`, `streaks`, `journal_entries`, `craving_log`, `lesson_progress`
 
